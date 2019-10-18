@@ -3,27 +3,35 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-// const usersRouter = require('./routes/users');
 const cateNewsRouter = require("./routes/cateNews");
 const newsRouter = require("./routes/news");
-// const orderRouter = require('./routes/order');
 const loginRouter = require("./routes/login");
-
-const dotenv = require("dotenv");
-
-dotenv.config();
-
+const newsEditRouter = require("./routes/newsEdit");
 // const likeRouter = require('./routes/like')
-// const rateRouter = require('./routes/rate')
+const rateRouter = require('./routes/rate')
 // const viewRouter = require('./routes/view')
 const mongoose = require("mongoose");
+// const dotenv = require("dotenv");
+// dotenv.config();
 
-let urlData = process.env.DATABASE_URL;
+// let urlData = process.env.DATABASE_URL;
+// const connetMongoDB = async () => {
+//   try {
+//     await mongoose.connect(urlData, {
+//       useNewUrlParser: true,
+//       useCreateIndex: true,
+//       useUnifiedTopology: true
+//     });
+//     console.log("connect successful ! ");
+//   } catch (error) {
+//     console.error("connect MongoDb has error: " + error);
+//   }
+// };
+
 const connetMongoDB = async () => {
   try {
-    await mongoose.connect(urlData, {
+    await mongoose.connect("mongodb://localhost/finnal", {
       useNewUrlParser: true,
-      useCreateIndex: true,
       useUnifiedTopology: true
     });
     console.log("connect successful ! ");
@@ -62,10 +70,11 @@ app.use(function(req, res, next) {
 // app.use('/users', usersRouter);
 app.use("/cateNews", cateNewsRouter);
 app.use("/news", newsRouter);
+app.use("/newsEdits", newsEditRouter);
 // app.use('/orders', orderRouter);
-app.use("/logins", loginRouter);
+app.use("/login", loginRouter);
 // app.use('/likes', likeRouter);
-// app.use('/rates', rateRouter);
+app.use('/rates', rateRouter);
 // app.use('/views', viewRouter);
 
 // catch 404 and forward to error handler

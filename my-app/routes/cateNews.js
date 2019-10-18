@@ -99,7 +99,7 @@ router.delete('/:_id', authAdmin, async function (req, res, next) {
     try {
         const _id = req.params._id;
         const name = req.body.name;
-        const cateCheck = await CategoryModel.findOne({ _id: _id });
+        const cateCheck = await CateNewsModel.findOne({ _id: _id });
         if (cateCheck == null) {
             return res.json({
                 data: null,
@@ -107,7 +107,7 @@ router.delete('/:_id', authAdmin, async function (req, res, next) {
                 code: 200
             })
         } if (cateCheck != null) {
-            const cateDelete = await CategoryModel.updateOne({ _id: _id }, { isDelete: true });
+            const cateDelete = await CateNewsModel.updateOne({ _id: _id }, { isDelete: true });
             const proCate = await NewsModel.updateMany({ category: _id }, { isDelete: true });
             return res.json({
                 code: 200,
@@ -115,8 +115,8 @@ router.delete('/:_id', authAdmin, async function (req, res, next) {
                 err: null
             })
         }
-
     } catch (err) {
+        console.log(err)
         return res.json({
             code: 400,
             err: err,

@@ -14,7 +14,7 @@ const authCus = async function (req, res, next) {
         try {
             const verified = jwt.verify(token, key.tokenKey);
             const userCheck = await UserModle.findOne({ _id: verified._id });
-            if (userCheck.role === 'customer') {
+            if (userCheck.role === 'customer' || userCheck.role === "admin") {
                 req.user = userCheck;
                 req.user.password = null;
                 next();

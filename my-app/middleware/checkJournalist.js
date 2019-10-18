@@ -4,14 +4,14 @@ const key = {
   tokenKey: "djghhhhuuwiwuewieuwieuriwu"
 };
 
-const authEditor = async function(req, res, next) {
+const authJournalist = async function(req, res, next) {
   const token = req.header("auth-token");
   if (!token) {
   } else {
     try {
       const verified = jwt.verify(token, key.tokenKey);
       const userCheck = await UserModle.findOne({ _id: verified._id });
-      if (userCheck.role === "editor" || userCheck.role === "admin") {
+      if (userCheck.role === "journalist" || userCheck.role === "admin") {
         req.user = userCheck;
         next();
       } else {
@@ -31,4 +31,4 @@ const authEditor = async function(req, res, next) {
   }
 };
 
-module.exports = authEditor;
+module.exports = authJournalist;

@@ -12,7 +12,7 @@ const authAdmin = async function (req, res, next) {
         try {
             const verified = jwt.verify(token, key.tokenKey);
             const userCheck = await UserModle.findOne({ _id: verified._id });
-            if (userCheck.role === 'admin' || userCheck.role === 'editor') {
+            if (userCheck.role === 'admin') {
                 req.user = userCheck;
                 next();
             } else {
