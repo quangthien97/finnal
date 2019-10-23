@@ -40,7 +40,8 @@ const schema = new Schema({
   dateCreate: {
     type: Date,
     default: new Date()
-  }
+  },
+  tag: [{ type: ObjectId, ref: "Tag" }]
 });
 
 const NewsModel = mongoose.model("News", schema);

@@ -7,7 +7,7 @@ const cateNewsRouter = require("./routes/cateNews");
 const newsRouter = require("./routes/news");
 const loginRouter = require("./routes/login");
 const newsEditRouter = require("./routes/newsEdit");
-// const likeRouter = require('./routes/like')
+const likeRouter = require('./routes/like')
 const rateRouter = require('./routes/rate')
 // const viewRouter = require('./routes/view')
 const mongoose = require("mongoose");
@@ -48,8 +48,6 @@ app.use(cookieParser());
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-global.WEB_URL = "http://localhost:3000";
-
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -62,7 +60,7 @@ app.use(function(req, res, next) {
   res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
   res.setHeader(
     "Access-Control-Allow-Headers",
-    "Cache-Control, Pragma, Origin, Authorization, access-token, Access-Control-Allow-Headers,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+    "Cache-Control, Pragma, Origin, Authorization, token, Access-Control-Allow-Headers,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
   );
   return next();
 });
@@ -71,9 +69,8 @@ app.use(function(req, res, next) {
 app.use("/cateNews", cateNewsRouter);
 app.use("/news", newsRouter);
 app.use("/newsEdits", newsEditRouter);
-// app.use('/orders', orderRouter);
 app.use("/login", loginRouter);
-// app.use('/likes', likeRouter);
+app.use('/likes', likeRouter);
 app.use('/rates', rateRouter);
 // app.use('/views', viewRouter);
 
